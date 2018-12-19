@@ -1,0 +1,22 @@
+# Autor: Ricardo D. Carrillo Sanchez
+# Defining host principal host connection (proxy ssh server) to access trought this
+# to any host of an organistation
+StrictHostKeyChecking no
+Host proxy-ssh-server.example.com
+# Useful aliase (must be defined prevously)
+Host admon
+User ricardo.carrillo
+HostName proxy-ssh-server.example.com
+IdentityFile ~/.ssh/id_rsa
+
+# Hosts from network 192
+Host 192.168.*
+User admin
+Port 22
+ProxyCommand ssh admon nc %h %p
+
+# Hosts from networks 10
+Host 10.1.*
+User admin
+Port 22
+ProxyCommand ssh admon nc %h %p
